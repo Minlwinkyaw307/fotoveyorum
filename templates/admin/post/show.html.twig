@@ -1,0 +1,63 @@
+{% extends 'admin/admin/base.html.twig' %}
+{% block title %} {{ title }}{% endblock %}
+
+{% block body %}
+<div class="col-md-6 main">
+    <div class="">
+        <div class="sign-up-form">
+            <h3>{{ post.title }}</h3>
+            <hr>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ post.id }}</td>
+                </tr>
+                <tr>
+                    <th>Title</th>
+                    <td>{{ post.title }}</td>
+                </tr>
+                <tr>
+                    <th>Keywords</th>
+                    <td>{{ post.keywords }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ post.description }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ post.status ? 'Yes' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Created At</th>
+                    <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Updated At</th>
+                    <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Images</th>
+                    <td>
+                        {% for img in post.image %}
+                        <p>{{img.title}}</p>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-secondary" href="{{ path('home_userpost_index') }}">back to list</a>
+
+        <a class="btn btn-primary" href="{{ path('home_userpost_edit', {'id': post.id}) }}">edit</a>
+
+            <form method="post" action="{{ path('home_userpost_delete', {'id': post.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+                <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

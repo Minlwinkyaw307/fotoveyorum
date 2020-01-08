@@ -1,0 +1,14 @@
+{% extends 'admin/admin/base.html.twig' %}
+{% block title %} {{ title }}{% endblock %}
+{% block body %}
+<h1>Edit Setting</h1>
+<hr>
+<div class="x_content">
+
+    {{ include('admin/setting/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('setting_index') }}">back to list</a>
+
+    {{ include('admin/setting/_delete_form.html.twig') }}
+</div>
+{% endblock %}

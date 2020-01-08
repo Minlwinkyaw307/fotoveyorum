@@ -1,0 +1,9 @@
+{% extends 'admin/admin/base.html.twig' %}
+{% block title %} {{ title }}{% endblock %}
+{% block body %}
+<h1>New Comment</h1>
+<div class="x_content">
+    {{ include('admin/comment/_form.html.twig') }}
+    <a class="btn btn-secondary" href="{{ path('comment_index') }}">back to list</a>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'admin/admin/base.html.twig' %}
+{% block title %} {{ title }}{% endblock %}
+{% block body %}
+<h1>Report Detail</h1>
+<div class="x_content">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comment_report.id }}</td>
+            </tr>
+            <tr>
+                <th>Reported At</th>
+                <td>{{ comment_report.createdAt ? comment_report.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Post Uploader</th>
+                <td>{{ comment_report.comment.commentedBy.username }}</td>
+            </tr>
+            <tr>
+                <th>Post Title</th>
+                <td>{{ comment_report.comment.title }}</td>
+            </tr>
+            <tr>
+                <th>Post Content</th>
+                <td>{{ comment_report.comment.comment | raw }}</td>
+            </tr>
+            <tr>
+                <th>Reported By</th>
+                <td>{{ comment_report.reportedBy.username }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ comment_report.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('comment_report_index') }}">back to list</a>
+
+
+    {{ include('admin/comment_report/_delete_form.html.twig') }}
+</div>
+{% endblock %}

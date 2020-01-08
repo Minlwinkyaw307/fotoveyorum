@@ -1,0 +1,47 @@
+
+<!--banner-section-->
+<div class="banner-section">
+    <h3 class="tittle">Lasted Posts <i class="glyphicon glyphicon-picture"></i></h3>
+    <div class="banner">
+        <div  class="callbacks_container">
+            <ul class="rslides" id="slider4">
+                {% for slider in sliders %}
+                <li>
+                    <img src="{{ asset('uploads/images/') ~ slider.img.image}}" class="img-responsive" alt=""/>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!--banner-->
+        <script src="{{ asset('assets/home/') }}js/responsiveslides.min.js"></script>
+        <script>
+            // You can also use "$(window).load(function() {"
+            $(function () {
+                // Slideshow 4
+                $("#slider4").responsiveSlides({
+                    auto: true,
+                    pager:true,
+                    nav:true,
+                    speed: 500,
+                    namespace: "callbacks",
+                    before: function () {
+                        $('.events').append("<li>before event fired.</li>");
+                    },
+                    after: function () {
+                        $('.events').append("<li>after event fired.</li>");
+                    }
+                });
+            });
+        </script>
+        <div class="clearfix"> </div>
+        <div class="b-bottom">
+            <h5 class="top"><a href="{{ path('home_post', {'id' : sliders[0].id}) }}">{{ sliders[0].title }}</a></h5>
+            <p>{{ sliders[0].updatedAt ? sliders[0].updatedAt|date('Y-m-d') : '' }} <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>{{ sliders[0].comment | length }} </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>{{ sliders[0].view ? sliders[0].view : 0 }} </a><a class="span_link" href="single.html"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+        </div>
+    </div>
+    <!--//banner-->
+    <!--/top-news-->
+    {% include('home/home/posts.html.twig') %}
+    <!--//top-news-->
+</div>
+<!--//banner-section-->

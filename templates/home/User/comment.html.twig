@@ -1,0 +1,55 @@
+{% extends('home/home/base.html.twig') %}
+{% block keywords %} {{setting.keywords}} {% endblock %}
+{% block description %} {{setting.description}} {% endblock %}
+{% block body %}
+<div class="col-md-6 main">
+    <div class="">
+        {% include('home/User/nav.html.twig') %}
+        <div class="sign-up-form">
+    <h1>Comment index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Comment</th>
+            <th>Rate</th>
+            <th>Status</th>
+            <th>Report</th>
+            <th>Delete</th>
+            <th>Edit</th>
+            <th>Show</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.comment | raw}}</td>
+                <td>{{ comment.rate }}</td>
+                <td>{{ comment.status ? 'Yes' : 'No' }}</td>
+                <td>{{ comment.commentReports | length }}</td>
+                <td>
+                    <form method="post" action="{{ path('home_usercomment_delete', {'id': comment.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('home_usercomment_edit', {'id': comment.id}) }}">edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-primary   " href="{{ path('home_usercomment_show', {'id': comment.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        </div>
+    </div>
+
+    <div class="clearfix"> </div>
+{% endblock %}

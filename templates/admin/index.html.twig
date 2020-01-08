@@ -1,0 +1,98 @@
+{% extends 'admin/admin/base.html.twig' %}
+
+{% block title %}FotoGrapher |Admin{% endblock %}
+
+{% block body %}
+<h1>Lastest Posts</h1>
+<hr>
+<div class="x_content">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Image</th>
+            {#                <th>Gallery</th>#}
+            <th>Created At</th>
+            <th>Delete</th>
+            <th>Edit</th>
+            <th>Show</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{{ post.category.title }}</td>
+                <td>{{ post.status ? 'Yes' : 'No' }}</td>
+                <td>
+                    {% if not post.img %}
+                        <img src="{{ asset('assets/admin/production/images/upload_img.png') }}" alt="" onclick="openWindow('{{ path('image_new_post', {'id':post.id}) }}')" height="30px">
+                    {% else %}
+                        <img src="{{ asset('uploads/images/') ~ post.img.image }}" alt="" height="30px" onclick="openWindow('{{ path('image_new_post', {'id':post.id}) }}')">
+                    {% endif %}
+                </td>
+                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    {{include('admin/post/_delete_form.html.twig')}}
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary" href="{{ path('post_show', {'id': post.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+    <h1>Comment index</h1>
+    <div class="x_content">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Comment</th>
+                <th>Rate</th>
+                <th>No. of Reports</th>
+                <th>Status</th>
+                <th>Delete</th>
+                <th>Edit</th>
+                <th>Show</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.comment | raw }}</td>
+                    <td>{{ comment.commentReports | length }}</td>
+                    <td>{{ comment.rate }}</td>
+                    <td>{{ comment.status ? 'Yes' : 'No' }}</td>
+                    <td>
+                        {% include('admin/comment/_delete_form.html.twig') %}
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-secondary btn-sm" href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-primary btn-sm" href="{{ path('comment_show', {'id': comment.id}) }}">show</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}

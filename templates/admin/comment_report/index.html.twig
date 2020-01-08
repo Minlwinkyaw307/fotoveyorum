@@ -1,0 +1,46 @@
+{% extends 'admin/admin/base.html.twig' %}
+{% block title %} {{ title }}{% endblock %}
+{% block body %}
+<h1>Comment Report index</h1>
+<div class="x_content">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Reported By</th>
+                <th>Reported At</th>
+                <th>Status</th>
+                <th>Delete</th>
+                <th>Delete Post</th>
+                <th>Show</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment_report in comment_reports %}
+            <tr>
+                <td>{{ comment_report.id }}</td>
+                <td>{{ comment_report.reportedBy.username }}</td>
+                <td>{{ comment_report.createdAt ? comment_report.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ comment_report.status }}</td>
+                <td>
+                    {% include('admin/comment_report/_delete_form.html.twig') %}
+                </td>
+                <td>
+                    {% set comment = comment_report.comment %}
+{#                    <a class="btn btn-danger btn-sm" href="#">Delete Post</a>#}
+                    {% include ('admin/comment/_delete_form.html.twig') %}
+                </td>
+                <td>
+                    <a class="btn btn-outline-primary btn-sm" href="{{ path('comment_report_show', {'id': comment_report.id}) }}">Show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+<!-- header-section-starts -->
+<div class="h-top" id="home">
+    <div class="top-header">
+        <ul class="cl-effect-16 top-nag">
+            <li><a href="{{ path('register_new_user') }}" data-hover="Registration">Registration</a></li>
+            <li><a href="{{ path('home_category_index') }}" data-hover="CATEGORYIES">Categories</a></li>
+            <li><a href="{{ path('about') }}" data-hover="ABOUT">About</a></li>
+            {% if not app.user %}
+                <li><a href="{{ path('app_login') }}" data-hover="LOGIN">Login</a></li>
+            {% endif %}
+            <li><a href="{{ path('contact') }}" data-hover="CONTACT">Contact</a></li>
+            <li><a href="{{ path('references') }}" data-hover="REFERENCES">References</a></li>
+            {% if app.user %}
+                <li><a href="{{ path('home_user_profile') }}" data-hover="PROFILE">Profile</a></li>
+                <li><a href="{{ path('app_logout') }}" data-hover="LOGOUT">Logout</a></li>
+
+            {% endif %}
+
+        </ul>
+
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="full">
+    <div class="col-md-3 top-nav">
+        <div class="logo">
+            <a href="{{ path('home') }}"><h3 style="color: white;">{{setting.company}}</h3></a>
+        </div>
+        <div class="top-menu">
+            <span class="menu"> </span>
+
+            <ul class="cl-effect-16">
+                <li><a class="active" href="{{path('home')}}" data-hover="HOME">Home</a></li>
+                <li><a href="{{ path('about') }}" data-hover="ABOUT">About</a></li>
+                <li><a href="{{ path('app_login') }}" data-hover="LOGIN">Login</a></li>
+                <li><a href="{{ path('contact') }}" data-hover="CONTACT">Contact</a></li>
+                <li><a href="{{ path('references') }}" data-hover="REFERENCES">References</a></li>
+                <li><a href="{{ path('app_logout') }}" data-hover="LOGOUT">Logout</a></li>
+            </ul>
+            <!-- script-for-nav -->
+            <script>
+                $( "span.menu" ).click(function() {
+                    $( ".top-menu ul" ).slideToggle(300, function() {
+                        // Animation complete.
+                    });
+                });
+            </script>
+            <!-- script-for-nav -->
+            <ul class="side-icons">
+                <li><a class="fb" href="{{ setting.facebook }}"></a></li>
+                <li><a class="twitt" href="#"></a></li>
+                <li><a class="goog" href="{{ setting.twitter }}"></a></li>
+                <li><a class="drib" href="#"></a></li>
+            </ul>
+        </div>
+    </div>

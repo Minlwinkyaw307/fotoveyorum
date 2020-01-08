@@ -1,0 +1,48 @@
+<div class="banner-right-text">
+    <div class="single category">
+        <div class="clearfix"> </div>
+        <h3 class="side-title">Category</h3>
+        <ul class="list-unstyled">
+            {% for category in categories %}
+                {% if category.status %}
+                    <li style="font-family: 'Open Sans', sans-serif; text-transform: uppercase; ">{{category.title}}
+                        <ul class="">
+                            {% for subcat in category.categories %}
+                            <li style="padding-left: 20px;"><a href="{{ path('home_subcategory_index', {'id' : subcat.id}) }}" title="">{{subcat.title}} <span class="pull-right">{{ subcat.posts | length }}</span></a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clearfix"> </div>
+    <h3 class="tittle">Popular Posts  <i class="glyphicon glyphicon-facetime-video"></i></h3>
+    <!--/general-news-->
+    <div class="general-news">
+        <div class="general-inner">
+            <div class="general-text">
+                <a href="{{ path('home_post', {'id' : popular.id}) }}"><img src="{{ asset('uploads/images/' ~ popular.img.image) }}" class="img-responsive" alt=""></a>
+                <h5 class="top"><a href="{{ path('home_post', {'id' : popular.id}) }}">{{ popular.title }}</a></h5>
+                <p>{{ popular.content }}</p>
+                <p>{{ popular.createdAt | date('F d, Y') }} <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>{{ popular.comments | length }} </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>{{ popular.view ? popular.view : 0 }} </a><a class="span_link" href="{{ path('home_post', {'id' : popular.id}) }}"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+            </div>
+            <div class="edit-pics">
+                {% for rs in others %}
+                <div class="editor-pics">
+                    <div class="col-md-3 item-pic">
+                        <img src="{{ asset('uploads/images/' ~ rs.img.image) }}" class="img-responsive" alt="">
+                    </div>
+                    <div class="col-md-9 item-details">
+                        <h5 class="inner two"><a href="{{ path('home_post', {'id' : rs.id}) }}">{{ rs.title }}</a></h5>
+                        <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i>{{ popular.createdAt | date('F d, Y') }} <a href="#"><i class="glyphicon glyphicon-comment"></i>{{ rs.comments | length }} </a></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!--//general-news-->
+    <!--/news-->
+    <!--/news-->

@@ -1,0 +1,10 @@
+<div class="top-news">
+    {% for post in posts %}
+    <div class="col-md-6 top-text">
+        <a href="{{ path('home_post', {'id': post.id}) }}"><img src="{{ asset('uploads/images/' ~ post.img.image) }}" class="img-responsive" alt=""></a>
+        <h5 class="top"><a href="#">{{ post.title }}</a></h5>
+        <p>{{ post.content |striptags|slice(0, 100)  }}..</p>
+        <p>On Jun 25 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>{{ post.comment | length }} </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>{{ post.view ? post.view : 0 }} </a><a class="span_link" href="single.html"><span class="glyphicon glyphicon-circle-arrow-right"></span></a></p>
+    </div>
+    {% endfor %}
+</div>

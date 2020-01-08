@@ -1,0 +1,53 @@
+{% extends('home/home/base.html.twig') %}
+{% block keywords %} {{setting.keywords}} {% endblock %}
+{% block description %} {{setting.description}} {% endblock %}
+{% block body %}
+    <div class="col-md-9 main">
+        <div class="contact">
+            <h3 class="tittle">Find Us <i class="glyphicon glyphicon-map-marker"></i></h3>
+            <div class="contact-left">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7138.921132838307!2d32.6548606986484!3d41.20985757906968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x408354ac4492953f%3A0xab3b48ed0392a743!2sKarab%C3%BCk%20University!5e0!3m2!1sen!2str!4v1577645599689!5m2!1sen!2str" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            </div>
+            <div class="contact-right">
+                <p class="phn">{{ setting.phone }}</p>
+                <p class="phn-bottom">{{ setting.address }}</p>
+                <p class="lom">Nullam ac urna velit. Pellentesque in arcu tortor.
+                    Pellentesque nec est et elit varius pulvinar eget vitae sapien.
+                    Aenean vehicula accumsan gravida.</p>
+            </div>
+            <div class="clearfix"> </div>
+            <div class="contact-left1">
+                <h3>Contact Us With <span>Any questions</span></h3>
+                <div class="in-left">
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <form action="" method="post">
+                        <p class="your-para">Subject:</p>
+                        <input type="text" value="" name="message[subject] onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+                        <p class="your-para">Your Name :</p>
+                        <input type="text" value="" name="message[name]" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+                        <p class="your-para">Your Mail :</p>
+                        <input type="email" value="" name="message[email] onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+                        <p class="your-para">Phone Number:</p>
+                        <input type="text" value="" name="message[phone] onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+
+                </div>
+                <div class="in-right">
+
+                    <p class="your-para">Message</p>
+                        <textarea cols="10" name="message[message]" rows="5" onfocus="this.value='';" onblur="if (this.value == '') {this.value = '';}"></textarea>
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="contact-right1">
+                <h3><span>From us</span></h3>
+                {{ setting.contact | raw }}
+            </div>
+    </div>
+    <div class="clearfix"> </div>
+{% endblock %}

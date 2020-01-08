@@ -1,0 +1,10 @@
+{% extends 'admin/admin/base.html.twig' %}
+{% block title %} {{ title }}{% endblock %}
+{% block body %}
+    <h1>New Category</h1>
+    <hr>
+    <div class="x_content">
+        {{ include('admin/category/_form.html.twig') }}
+        <a class="btn btn-secondary" href="{{ path('category_index') }}">back to list</a>
+    </div>
+{% endblock %}

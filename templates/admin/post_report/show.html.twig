@@ -1,0 +1,43 @@
+{% extends 'admin/admin/base.html.twig' %}
+{% block title %} {{ title }}{% endblock %}
+{% block body %}
+<h1>Report Detail</h1>
+<div class="x_content">
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post_report.id }}</td>
+            </tr>
+            <tr>
+                <th>Reported At</th>
+                <td>{{ post_report.createdAt ? post_report.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Post Uploader</th>
+                <td>{{ post_report.post.createdBy.username }}</td>
+            </tr>
+            <tr>
+                <th>Post Title</th>
+                <td>{{ post_report.post.title }}</td>
+            </tr>
+            <tr>
+                <th>Post Content</th>
+                <td>{{ post_report.post.content }}</td>
+            </tr>
+            <tr>
+                <th>Reported By</th>
+                <td>{{ post_report.reportedBy.username }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ post_report.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('post_report_index') }}">back to list</a>
+    {{ include('admin/post_report/_delete_form.html.twig') }}
+</div>
+{% endblock %}

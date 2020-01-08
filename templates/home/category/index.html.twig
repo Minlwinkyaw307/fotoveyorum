@@ -1,0 +1,49 @@
+{% extends('home/home/base.html.twig') %}
+{% block keywords %} {{setting.keywords}} {% endblock %}
+{% block description %} {{setting.description}} {% endblock %}
+{% block body %}
+    <div class="col-md-9 main">
+
+{#        {% include('home/home/posts.html.twig') %}#}
+
+        <!--banner-section-->
+        <div class="banner-section">
+            <h3 class="tittle">{{ category ? category : "All Categories' " }}Posts <i class="glyphicon glyphicon-picture"></i></h3>
+            <div class="banner">
+                <div  class="callbacks_container">
+                    <ul class="rslides" id="slider4">
+
+                    </ul>
+                </div>
+                <!--banner-->
+                <script src="{{ asset('assets/home/') }}js/responsiveslides.min.js"></script>
+                <script>
+                    // You can also use "$(window).load(function() {"
+                    $(function () {
+                        // Slideshow 4
+                        $("#slider4").responsiveSlides({
+                            auto: true,
+                            pager:true,
+                            nav:true,
+                            speed: 500,
+                            namespace: "callbacks",
+                            before: function () {
+                                $('.events').append("<li>before event fired.</li>");
+                            },
+                            after: function () {
+                                $('.events').append("<li>after event fired.</li>");
+                            }
+                        });
+                    });
+                </script>
+                <div class="clearfix"> </div>
+            </div>
+            <!--//banner-->
+            <!--/top-news-->
+            {% include('home/home/posts.html.twig') %}
+            <!--//top-news-->
+        </div>
+        {% include('home/home/popular.html.twig') %}
+    </div>
+    <div class="clearfix"> </div>
+{% endblock %}

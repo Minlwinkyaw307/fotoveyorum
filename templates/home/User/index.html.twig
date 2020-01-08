@@ -1,0 +1,48 @@
+{% extends('home/home/base.html.twig') %}
+{% block keywords %} {{setting.keywords}} {% endblock %}
+{% block description %} {{setting.description}} {% endblock %}
+{% block body %}
+<div class="col-md-6 main">
+    <div class="">
+        {% include('home/User/nav.html.twig') %}
+        <div class="sign-up-form">
+            <img src="{{ asset('uploads/images/' ~ app.user.image) }}" alt="" width="100px" height="100px" style="object-fit: cover; border-radius: 100%;">
+            <hr>
+            <hr>
+            <h3 class="tittle reg">Your Profile <i class="glyphicon glyphicon-user"></i></h3>
+            <form name="user" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="user_email" class="required">Email</label>
+                    <input type="text" id="user_email" name="user[email]" readonly maxlength="180" class="form-control" value="{{ app.user.email }}" />
+                </div>
+                <div class="form-group">
+                    <label for="user_password" class="required">New Password</label>
+                    <input type="password" id="user_password" name="password" class="form-control" value="" />
+
+                </div>
+                <input hidden name="user[password]"
+                       type="text" value="{{ app.user.password }}"/>
+                <div class="form-group">
+                    <label for="user_name" class="required">Name</label>
+                    <input type="text" id="user_name" name="user[name]" maxlength="50" class="form-control" value="{{app.user.name}}" />
+                </div>
+                <div class="form-group">
+                    <label for="user_surname" class="required">Surname</label>
+                    <input type="text" id="user_surname" name="user[surname]" maxlength="50" class="form-control" value="{{app.user.surname}}" />
+                </div>
+                <h3 class="tittle reg">New Profile Image <i class="glyphicon glyphicon-import"></i></h3>
+                <div class="form-group">
+                    <label for="user_image" class="required">Profile</label>
+                    <div class="custom-file">
+                        <input type="file" id="user_image" name="user[image]" class="custom-file-input" />
+                        <label for="user_image" class="custom-file-label"></label>
+                    </div>
+                </div>
+                <button class="btn btn-primary">Save</button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="clearfix"> </div>
+{% endblock %}

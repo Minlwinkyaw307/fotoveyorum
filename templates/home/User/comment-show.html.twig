@@ -1,0 +1,45 @@
+{% extends('home/home/base.html.twig') %}
+{% block keywords %} {{setting.keywords}} {% endblock %}
+{% block description %} {{setting.description}} {% endblock %}
+{% block title %} {% endblock %}
+{% block body %}
+<div class="col-md-6 main">
+    <div class="">
+        {% include('home/User/nav.html.twig') %}
+        <div class="sign-up-form">
+            <h3>Comment</h3>
+            <hr>
+            <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ comment.id }}</td>
+        </tr>
+        <tr>
+            <th>Comment</th>
+            <td>{{ comment.comment | raw}}</td>
+        </tr>
+        <tr>
+            <th>Rate</th>
+            <td>{{ comment.rate }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ comment.status ? 'Yes' : 'No' }}</td>
+        </tr>
+        <tr>
+            <th>Created  At</th>
+            <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('comment_index') }}">back to list</a>
+
+    <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
+
+        </div>
+    </div>
+
+    <div class="clearfix"> </div>
+{% endblock %}

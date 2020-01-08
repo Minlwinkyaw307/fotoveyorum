@@ -1,0 +1,131 @@
+{% extends('home/home/base.html.twig') %}
+{% block keywords %} {{post.keywords}} {% endblock %}
+{% block description %} {{post.description}} {% endblock %}
+{% block body %}
+<div class="col-md-9 main">
+    <div class="banner-section">
+        <h3 class="tittle">{{ post.title }} <i class="glyphicon glyphicon-picture"></i></h3>
+        <div class="banner">
+            <div  class="callbacks_container">
+                <ul class="rslides" id="slider4">
+                    {% for slider in post.image %}
+                        <li>
+                            <img style="max-height: 500px" src="{{ asset('uploads/images/') ~ slider.image}}" class="img-responsive" alt=""/>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!--banner-->
+            <script src="{{ asset('assets/home/') }}js/responsiveslides.min.js"></script>
+            <script>
+                // You can also use "$(window).load(function() {"
+                $(function () {
+                    // Slideshow 4
+                    $("#slider4").responsiveSlides({
+                        auto: true,
+                        pager:true,
+                        nav:true,
+                        speed: 500,
+                        namespace: "callbacks",
+                        before: function () {
+                            $('.events').append("<li>before event fired.</li>");
+                        },
+                        after: function () {
+                            $('.events').append("<li>after event fired.</li>");
+                        }
+                    });
+                });
+            </script>
+            <div class="clearfix"> </div>
+            <div class="b-bottom">
+                <h5 class="top"><a href="#">{{ post.title }}</a></h5>
+                <small>Category {{ post.image | length }}: {{ post.category.title }}</small>
+                <hr>
+                <p class="sub">{{ post.content }}</p>
+                {% for message in app.flashes('success_post') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('error_post') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <p>{{ post.updatedAt | date('F d, Y')  }} <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>{{ post.comments | length }} </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>{{ post.view ? post.view : 0 }} </a>{%  if app.user %}| <a href="{{ path('report_post', {'id' : post.id}) }}">Report this post</a>{% endif %}</p>
+
+            </div>
+        </div>
+
+        <div class="single-bottom">
+            <div class="single-middle">
+                <ul class="social-share">
+                    <li><span>SHARE</span></li>
+                    <li><a href="#"><i> </i></a></li>
+                    <li><a href="#"><i class="tin"> </i></a></li>
+                    <li><a href="#"><i class="message"> </i></a></li>
+                </ul>
+                <a href="#"><i class="arrow"> </i></a>
+                <div class="clearfix"> </div>
+            </div>
+
+        </div>
+        <div class="response">
+            <h4>Responses</h4>
+            <div class="media response-info">
+                {% for comment in post.comments %}
+                {% if comment.status %}
+                <div class="media-left response-text-left">
+                    <a href="#">
+                        <img class="media-object" src="{{ asset('uploads/images/' ~ comment.commentedBy.image) }}" height="75px" width="75px" alt="" style="object-fit: cover"/>
+                    </a>
+                    <h5>{{ comment.commentedBy.username }}</h5>
+                </div>
+                <div class="media-body response-text-right">
+                    <h5>{{ comment.title }} - <{{ comment.rate }} <i class="glyphicon glyphicon-star"></i>></h5>
+                    <p>{{ comment.comment | raw }}</p>
+                    {% for message in app.flashes('success_comment') %}
+                        <div class="alert alert-success">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    {% for message in app.flashes('error_comment') %}
+                        <div class="alert alert-danger">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <ul>
+                        <li>{{ comment.createdAt | date('F d, Y') }}</li>
+                        {%  if app.user %}
+                            <li><a class="btn btn-sm" href="{{ path('report_comment', {'id' : comment.id}) }}">Report This Comment</a></li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+                <div class="clearfix"> </div>
+                <hr>
+                {% endif %}
+                {% else %}
+                    <h4>There is no Comment Yet. Write the first comment</h4>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="coment-form">
+            <h4>Leave your comment</h4>
+            {% if app.user %}
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+                {{ form_end(form) }}
+            {% else %}
+                <h4>Please Sign In To Comment. <a href="{{ path('app_login') }}">Sign In Here</a></h4>
+            {% endif %}
+        </div>
+    <!--//banner-->
+    </div>
+    {% include('home/home/popular.html.twig') %}
+    <div class="clearfix"> </div>
+</div>
+    <div class="clearfix"> </div>
+{% endblock %}

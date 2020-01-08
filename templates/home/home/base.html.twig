@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>FotoGrapher | {{ title ? title : setting.company }}</title>
+    <meta name="keywords" content="{% block keywords %} photo, comment, sharing, image, picture {% endblock %}" />
+    <meta name="description" content="{% block description %} Share Your Opinion, Share Your Photographs {% endblock %}" />
+    {% include('home/home/header.html.twig') %}
+</head>
+<body>
+{% include('home/home/nav.html.twig') %}
+{% block body %}
+
+{% endblock %}
+{% include('home/home/footer.html.twig') %}
+
+
+</body>
+</html>
